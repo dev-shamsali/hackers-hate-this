@@ -3,5 +3,19 @@
   "version": "0.0.1",
   "private": true,
   "description": "INTENTIONALLY VULNERABLE fixture for testing sentinel-security. Never deploy.",
-  "dependencies": { "express": "^4.17.1", "mongoose": "^7.0.0", "mysql2": "^3.0.0", "jsonwebtoken": "^8.5.1", "multer": "^1.4.5-lts.1", "cors": "^2.8.5", "zod": "^3.22.0" }
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^7.0.0",
+    "mysql2": "^3.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.5-lts.1",
+    "cors": "^2.8.5",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "supertest": "^7.3.1"
+  },
+  "scripts": {
+    "test:security": "node --test security-tests/"
+  }
 }

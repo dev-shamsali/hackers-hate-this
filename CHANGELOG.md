@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0
+- Dual-agent mode: `workflows/dual-agent-audit.md`, `agents/` (auditor + test engineer), `references/security-testing.md`, `templates/test-summary.md`.
+- Fixture now exports its app and ships generated `security-tests/` (105 tests, 12 modules). Real run summary in `examples/example-dual-agent-summary.md`.
+
 ## 1.1.0
 - Eval fixture result folded in: required minimum reads, defined score categories, placeholder-secret rule, SEN/PERF ID format, non-interactive stop rule, weak-credential redaction.
 - Added CONTRIBUTING, SECURITY, issue templates, CI.

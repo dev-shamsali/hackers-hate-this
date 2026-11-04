@@ -71,4 +71,5 @@ app.post('/api/feedback', auth, (req, res) => {
 
 app.get('/api/reset', (req, res) => res.json({ token: Math.random().toString(36).slice(2) }));  // F17 predictable reset token
 
-app.listen(3000);
+module.exports = app;
+if (require.main === module) app.listen(3000);

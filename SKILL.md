@@ -1,7 +1,7 @@
 ---
 name: sentinel-security
-description: Audit, harden and verify Node.js web backends (Express, NestJS, Next.js, MERN) and their databases (MySQL, MariaDB, PostgreSQL, MongoDB, Prisma, Sequelize, TypeORM, Drizzle, Mongoose). Use for security audit, vulnerability scan, pentest-style code review, SQL/NoSQL injection, auth/JWT/IDOR/RBAC review, rate limiting, API hardening, Docker/Nginx/CI security, performance or production-readiness audit, and "fix critical vulnerabilities".
-argument-hint: "[audit | backend | api | sql | mongodb | auth | authz | nextjs | nestjs | performance | production | fix | harden | verify] [path]"
+description: Audit, harden, test and verify Node.js web backends (Express, NestJS, Next.js, MERN) and their databases (MySQL, MariaDB, PostgreSQL, MongoDB, Prisma, Sequelize, TypeORM, Drizzle, Mongoose). Use for security audit, vulnerability scan, pentest-style code review, SQL/NoSQL injection, auth/JWT/IDOR/RBAC review, rate limiting, API hardening, Docker/Nginx/CI security, performance or production-readiness audit, generating and running security tests per module, and "fix critical vulnerabilities".
+argument-hint: "[audit | test | backend | api | sql | mongodb | auth | authz | nextjs | nestjs | performance | production | fix | harden | verify] [path]"
 ---
 
 # Sentinel Security
@@ -25,6 +25,7 @@ Parse the user request (or `$ARGUMENTS`). No command given = **full audit**.
 | "performance audit" | `workflows/performance-audit.md` |
 | "production readiness audit" | `workflows/production-readiness.md` |
 | "fix critical vulnerabilities", "harden backend" | `workflows/backend-hardening.md` (remediation; needs approved plan) |
+| "audit and test", "generate security tests", "run security tests", "test summary", "dual agent" | `workflows/dual-agent-audit.md`: auditor agent + test-engineer agent in parallel, merged summary |
 | "verify security fixes" | Phase 5 below, then `templates/final-assessment.md` |
 
 Always run discovery first if no discovery result exists in this conversation.
@@ -52,6 +53,7 @@ Always run discovery first if no discovery result exists in this conversation.
 | Upload code (multer, formidable, busboy, presigned URLs) | `file-upload-security.md` |
 | Dockerfile, compose, nginx, pm2, `.github/workflows`, Jenkinsfile | `infrastructure-security.md` |
 | Performance or production audit | `performance.md` |
+| Test generation / dual-agent mode | `security-testing.md` (test engineer reads it in full) |
 
 Paths are relative to this skill's base directory. Always call scripts with that absolute path (`bash <skill-dir>/scripts/security-check.sh <target-dir>`), because the target repo is a different directory.
 
@@ -134,4 +136,4 @@ Run via interpreter, read-only, safe to run on any repo:
 
 ## Docs in this skill
 
-`README.md` install and usage. `examples/` sample audit report and remediation walkthrough. `VALIDATION.md` checklist for this skill itself.
+`agents/` role prompts for the auditor and test-engineer agents (optional install to `~/.claude/agents/`). `README.md` install and usage. `examples/` sample audit report and remediation walkthrough. `VALIDATION.md` checklist for this skill itself.

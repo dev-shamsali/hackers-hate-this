@@ -15,6 +15,9 @@ A security engineer for your coding agent. Point it at a Node.js repo and it fin
 
 **Standards:** OWASP Top 10, API Security Top 10, ASVS, Cheat Sheets, CWE, Node.js security best practices.
 
+## Dual-agent mode (audit + tests)
+Say "audit and test". The orchestrator runs discovery, asks once for approval (test directory, local-only run mode, whether a devDependency may be added), then starts two agents in parallel: **sentinel-auditor** (read-only findings) and **sentinel-test-engineer** (new test files only, per module, each module run separately). Tests assert secure behavior, so a failing test means the flaw is reproducible. The result is one summary: per-module pass/fail table, failed tests, verified controls, and a cross-check of each finding as Test-confirmed, Audit-only, Test-only or Conflict. After fixes, the same tests verify them (red to green). Optional: copy `agents/*.md` to `~/.claude/agents/` to use them as named subagents. See `examples/example-dual-agent-summary.md` (real run: 105 tests across 12 modules).
+
 ## Evaluation
 `fixtures/vulnerable-express-app` is an intentionally vulnerable API with 19 seeded flaws and 2 good controls (ground truth in `EXPECTED.md`). One audit run by a subagent that had the skill but not the answer key:
 - Found all 19 seeded issues (recall 19/19), credited both good controls, cited correct line numbers on spot-check, printed no secret values, and reported tools it could not run as "not run".
@@ -48,6 +51,7 @@ Invoke with `/sentinel-security` (optionally with an argument) or just describe 
 | "Next.js security audit" / "NestJS security audit" | framework audit |
 | "performance audit" | indexes, N+1, pools, event loop, scaling |
 | "production readiness audit" | go/no-go gate table |
+| "audit and test" / "generate security tests" | **dual-agent mode**: one agent audits, one writes and runs security tests per module (auth, JWT, authz, IDOR, tenant, SQLi, NoSQLi, validation, rate limit, headers, upload, SSRF), then a merged summary |
 | "fix critical vulnerabilities" / "harden backend" | plan, approval, fix with tests |
 | "verify security fixes" | re-run tests/scanners, re-audit |
 
@@ -63,9 +67,10 @@ Flow: discovery -> audit -> report (stops for your approval) -> remediation of a
 ## Layout
 ```
 SKILL.md              entry point: routing, rules, scoring, phases
-references/           23 topic modules, loaded only when detected
-workflows/            12 step-by-step procedures
-templates/            report, checklist, remediation plan, final assessment
+agents/               role prompts for auditor + test-engineer agents (optional: copy to ~/.claude/agents/)
+references/           24 topic modules, loaded only when detected
+workflows/            13 step-by-step procedures
+templates/            report, checklist, remediation plan, final assessment, test summary
 scripts/              dependency-audit.sh, secret-scan.sh, security-check.sh (read-only)
 examples/             sample report and remediation walkthrough (fictional)
 VALIDATION.md         checklist used to validate this skill
