@@ -2,7 +2,7 @@
   "name": "vulnerable-express-app",
   "version": "0.0.1",
   "private": true,
-  "description": "INTENTIONALLY VULNERABLE fixture for testing sentinel-security. Never deploy.",
+  "description": "INTENTIONALLY VULNERABLE fixture for testing hackers-hate-this. Never deploy.",
   "dependencies": {
     "express": "^4.17.1",
     "mongoose": "^7.0.0",

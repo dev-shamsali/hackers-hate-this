@@ -8,7 +8,7 @@ Shows the Phase 4-6 conversation shape. Commands are illustrative.
 Claude restates scope: "Critical in the current report = SEN-001 only. High items (SEN-002, SEN-003) are not included. Confirm, or add IDs." Operator: "Also SEN-002." Scope = SEN-001, SEN-002. No new dependencies needed (zod already installed).
 
 ## 2. Pre-flight
-- `git status`: clean, branch `fix/sentinel-critical` suggested; operator creates it.
+- `git status`: clean, branch `fix/hht-critical` suggested; operator creates it.
 - Baseline: `npm test` -> 42 passed, 0 failed; `npm run build` ok; `npm run lint` ok.
 
 ## 3. SEN-001 loop

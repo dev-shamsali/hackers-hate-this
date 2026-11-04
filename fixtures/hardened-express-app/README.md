@@ -1,6 +1,6 @@
 # Hardened version of vulnerable-express-app
 
-Output of one Sentinel remediation run (agent applied fixes, a second agent verified with tests). 140 security tests across 14 modules pass in-process (`npm install && npm run test:security`, or run one module: `node --test security-tests/dos.test.js`).
+Output of one Hackers Hate This remediation run (agent applied fixes, a second agent verified with tests). 140 security tests across 14 modules pass in-process (`npm install && npm run test:security`, or run one module: `node --test security-tests/dos.test.js`).
 
 Compare with `../vulnerable-express-app` (same 105 baseline tests: 27 pass there, 105 pass here).
 

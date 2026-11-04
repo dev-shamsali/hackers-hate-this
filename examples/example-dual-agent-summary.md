@@ -1,6 +1,6 @@
 # Dual-agent run on the bundled fixture (real output, condensed)
 
-Target: `fixtures/vulnerable-express-app` (intentionally vulnerable; never deploy). Two agents ran in parallel: `sentinel-auditor` (static audit) and `sentinel-test-engineer` (generated and ran tests). The orchestrator merged them. Tests used in-process mocks for MySQL/Mongo and a stubbed `fetch`; nothing touched a network or database. Generated tests are saved in `fixtures/vulnerable-express-app/security-tests/`.
+Target: `fixtures/vulnerable-express-app` (intentionally vulnerable; never deploy). Two agents ran in parallel: `hht-auditor` (static audit) and `hht-test-engineer` (generated and ran tests). The orchestrator merged them. Tests used in-process mocks for MySQL/Mongo and a stubbed `fetch`; nothing touched a network or database. Generated tests are saved in `fixtures/vulnerable-express-app/security-tests/`.
 
 Reproduce: `cd fixtures/vulnerable-express-app && npm install && node --test security-tests/jwt.test.js` (any module file). Tests assert secure behavior: **FAIL = vulnerability reproduced**.
 

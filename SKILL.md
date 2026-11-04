@@ -1,10 +1,10 @@
 ---
-name: sentinel-security
+name: hackers-hate-this
 description: Audit, harden, test and verify Node.js web backends (Express, NestJS, Next.js, MERN) and their databases (MySQL, MariaDB, PostgreSQL, MongoDB, Prisma, Sequelize, TypeORM, Drizzle, Mongoose). Use for security audit, vulnerability scan, pentest-style code review, SQL/NoSQL injection, auth/JWT/IDOR/RBAC review, rate limiting, API hardening, Docker/Nginx/CI security, performance or production-readiness audit, generating and running security tests per module, and "fix critical vulnerabilities".
 argument-hint: "[audit | test | backend | api | sql | mongodb | auth | authz | nextjs | nestjs | performance | production | fix | harden | verify] [path]"
 ---
 
-# Sentinel Security
+# Hackers Hate This
 
 Principal-level AppSec + backend + DevSecOps workflow. Backend first, frontend second. Evidence only: every finding cites real code. Read-only until the operator approves changes.
 

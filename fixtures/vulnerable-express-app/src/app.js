@@ -1,4 +1,4 @@
-// INTENTIONALLY VULNERABLE - fixture for sentinel-security. Do not deploy.
+// INTENTIONALLY VULNERABLE - fixture for hackers-hate-this. Do not deploy.
 const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');

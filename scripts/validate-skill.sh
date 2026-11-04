@@ -10,7 +10,7 @@ err() { echo "FAIL: $*"; fail=1; }
 [ -f SKILL.md ] || { echo "FAIL: SKILL.md missing"; exit 1; }
 [ "$(sed -n 1p SKILL.md)" = "---" ] || err "SKILL.md must start with frontmatter ---"
 name="$(awk -F': *' '/^name:/{print $2; exit}' SKILL.md)"
-[ "$name" = "$(basename "$ROOT")" ] || [ "$name" = "sentinel-security" ] || err "frontmatter name '$name' unexpected"
+[ "$name" = "$(basename "$ROOT")" ] || [ "$name" = "hackers-hate-this" ] || err "frontmatter name '$name' unexpected"
 desc="$(awk '/^description:/{sub(/^description: */,""); print; exit}' SKILL.md)"
 [ -n "$desc" ] || err "description missing"
 [ "${#desc}" -le 1024 ] || err "description > 1024 chars (${#desc})"

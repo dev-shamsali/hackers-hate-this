@@ -5,7 +5,7 @@ set -u
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DIR="${1:-.}"
 cd "$DIR" 2>/dev/null || { echo "ERROR: cannot cd to $DIR"; exit 2; }
-echo "######## sentinel security-check: $(pwd)"
+echo "######## hackers-hate-this security-check: $(pwd)"
 
 has_dep() { [ -f package.json ] && grep -qE "\"$1\"[[:space:]]*:" package.json; }
 det() { echo "  $1: $2"; }

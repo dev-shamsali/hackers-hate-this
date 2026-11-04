@@ -1,6 +1,8 @@
-# Sentinel Security - Claude Code skill
+# Hackers Hate This - Claude Code skill
 
-[![validate-skill](https://github.com/dev-shamsali/sentinel-security/actions/workflows/validate.yml/badge.svg)](https://github.com/dev-shamsali/sentinel-security/actions/workflows/validate.yml)
+> Formerly `sentinel-security`. Same skill, funnier name. Finding IDs still use `SEN-NNN`.
+
+[![validate-skill](https://github.com/dev-shamsali/hackers-hate-this/actions/workflows/validate.yml/badge.svg)](https://github.com/dev-shamsali/hackers-hate-this/actions/workflows/validate.yml)
 ![license](https://img.shields.io/badge/license-MIT-blue)
 
 A security engineer for your coding agent. Point it at a Node.js repo and it finds real vulnerabilities in backend code, databases, APIs and infrastructure, proves each one with file and line, tells you how to fix it, and re-verifies after the fix.
@@ -16,7 +18,7 @@ A security engineer for your coding agent. Point it at a Node.js repo and it fin
 **Standards:** OWASP Top 10, API Security Top 10, ASVS, Cheat Sheets, CWE, Node.js security best practices.
 
 ## Dual-agent mode (audit + tests)
-Say "audit and test". The orchestrator runs discovery, asks once for approval (test directory, local-only run mode, whether a devDependency may be added), then starts two agents in parallel: **sentinel-auditor** (read-only findings) and **sentinel-test-engineer** (new test files only, per module, each module run separately). Tests assert secure behavior, so a failing test means the flaw is reproducible. The result is one summary: per-module pass/fail table, failed tests, verified controls, and a cross-check of each finding as Test-confirmed, Audit-only, Test-only or Conflict. After fixes, the same tests verify them (red to green). Optional: copy `agents/*.md` to `~/.claude/agents/` to use them as named subagents. See `examples/example-dual-agent-summary.md` (real run: 105 tests across 12 modules).
+Say "audit and test". The orchestrator runs discovery, asks once for approval (test directory, local-only run mode, whether a devDependency may be added), then starts two agents in parallel: **hht-auditor** (read-only findings) and **hht-test-engineer** (new test files only, per module, each module run separately). Tests assert secure behavior, so a failing test means the flaw is reproducible. The result is one summary: per-module pass/fail table, failed tests, verified controls, and a cross-check of each finding as Test-confirmed, Audit-only, Test-only or Conflict. After fixes, the same tests verify them (red to green). Optional: copy `agents/*.md` to `~/.claude/agents/` to use them as named subagents. See `examples/example-dual-agent-summary.md` (real run: 105 tests across 12 modules).
 
 ## Harden-then-test
 Say "harden against browser attacks, DoS and injection, then test every module". The remediation step applies approved fixes (new references: `browser-security.md`, `ddos-resilience.md`), then the test agent verifies each module and reports before/after. Worked example: `examples/example-hardening-run.md` (27/105 -> 140/140 tests; the second pass still found 2 real gaps). Output: `fixtures/hardened-express-app/`.
@@ -31,22 +33,22 @@ Caveats: single run, one fixture written by the skill author, same model family 
 
 ## Install
 ```bash
-git clone https://github.com/dev-shamsali/sentinel-security ~/.claude/skills/sentinel-security
+git clone https://github.com/dev-shamsali/hackers-hate-this ~/.claude/skills/hackers-hate-this
 ```
 Or copy manually:
 
-Personal (all projects): this folder at `~/.claude/skills/sentinel-security/`.
-Project-only: copy to `<repo>/.claude/skills/sentinel-security/` and commit.
+Personal (all projects): this folder at `~/.claude/skills/hackers-hate-this/`.
+Project-only: copy to `<repo>/.claude/skills/hackers-hate-this/` and commit.
 Claude Code discovers skills at session start; restart or open a new session after copying. Check with `/skills` (or ask "what skills do you have").
 
 Requirements: `bash`, `grep`; optional `node`/`npm`/`pnpm`/`yarn`, `semgrep`, `trivy`, `gitleaks`, `rg`. Missing tools are reported as "not run", never as passed.
 
 ## Use
-Invoke with `/sentinel-security` (optionally with an argument) or just describe the task.
+Invoke with `/hackers-hate-this` (optionally with an argument) or just describe the task.
 
 | Say | Result |
 |---|---|
-| `/sentinel-security` or "full security audit" | discovery + complete audit + report |
+| `/hackers-hate-this` or "full security audit" | discovery + complete audit + report |
 | "backend security audit" / "API security audit" | backend / API audit |
 | "SQL database security audit" | SQL injection + DB audit |
 | "MongoDB security audit" | NoSQL injection + DB audit |

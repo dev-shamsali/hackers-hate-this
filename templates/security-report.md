@@ -1,6 +1,6 @@
 # Security Audit Report - {{PROJECT}}
 
-Date: {{DATE}} | Auditor: Sentinel Security (Claude Code skill) | Scope: {{PATHS}} | Commit: {{GIT_SHA or "n/a"}}
+Date: {{DATE}} | Auditor: Hackers Hate This (Claude Code skill) | Scope: {{PATHS}} | Commit: {{GIT_SHA or "n/a"}}
 Mode: static review {{+ dynamic checks against <authorized target>}}. No source files were modified.
 
 ## 1. Executive summary

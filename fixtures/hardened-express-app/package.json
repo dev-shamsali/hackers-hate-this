@@ -2,7 +2,7 @@
   "name": "hardened-express-app",
   "version": "0.0.1",
   "private": true,
-  "description": "Sentinel-hardened version of fixtures/vulnerable-express-app. Reference output of a harden-then-test run. Review before reuse.",
+  "description": "Skill-hardened version of fixtures/vulnerable-express-app. Reference output of a harden-then-test run. Review before reuse.",
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",

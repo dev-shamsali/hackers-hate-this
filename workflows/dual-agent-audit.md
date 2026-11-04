@@ -16,7 +16,7 @@ If the operator cannot be asked (non-interactive): do not write into the repo. T
 
 ## Step 2: Spawn both agents in parallel
 Send ONE message with two Agent tool calls (so they run concurrently, `run_in_background: true`). Use the agent definitions in `agents/`:
-- If the operator installed them (`~/.claude/agents/`), use `subagent_type: sentinel-auditor` and `sentinel-test-engineer`.
+- If the operator installed them (`~/.claude/agents/`), use `subagent_type: hht-auditor` and `hht-test-engineer`.
 - Otherwise use `subagent_type: general-purpose` and paste the full body of `agents/security-auditor.md` / `agents/test-engineer.md` as the role section of the prompt.
 
 Prompt must include, for both: skill directory absolute path, target repo path, Discovery Summary, route inventory, the hard rules from `SKILL.md`. For the test engineer also: approved test directory, run mode, dependency permission, DB strategy. Do not tell the agents about each other's results.

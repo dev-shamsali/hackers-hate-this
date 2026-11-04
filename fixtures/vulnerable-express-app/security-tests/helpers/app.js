@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 const SRC = path.join(ROOT, 'src', 'app.js');
-const sandbox = fs.mkdtempSync(path.join(os.tmpdir(), 'sentinel-'));
+const sandbox = fs.mkdtempSync(path.join(os.tmpdir(), 'hht-'));
 process.chdir(sandbox);
 process.on('exit', () => { try { fs.rmSync(sandbox, { recursive: true, force: true }); } catch {} });
 

@@ -3,7 +3,7 @@
 Run these after any edit. Commands from the skill directory.
 
 ## Format
-- [ ] `SKILL.md` has YAML frontmatter with `name: sentinel-security` (matches folder, lowercase, hyphens) and a `description` under 1024 chars naming what and when.
+- [ ] `SKILL.md` has YAML frontmatter with `name: hackers-hate-this` (matches folder, lowercase, hyphens) and a `description` under 1024 chars naming what and when.
 - [ ] `SKILL.md` under 500 lines: `wc -l SKILL.md`.
 - [ ] Optional field `argument-hint` is valid YAML string.
 - [ ] No extra top-level files that Claude is expected to auto-load (only SKILL.md loads; others are read on demand).
@@ -14,7 +14,7 @@ Run these after any edit. Commands from the skill directory.
 - [ ] Every reference is linked from SKILL.md; every workflow is linked from the routing table.
 
 ```bash
-cd ~/.claude/skills/sentinel-security
+cd ~/.claude/skills/hackers-hate-this
 # 1. referenced files exist
 grep -rhoE '(references|workflows|templates|scripts|examples)/[A-Za-z0-9_.-]+\.(md|sh)' SKILL.md README.md workflows templates | sort -u | while read f; do [ -s "$f" ] || echo "MISSING/EMPTY: $f"; done
 # 2. bare reference names in SKILL.md tables
@@ -31,7 +31,7 @@ grep -rnE 'AKIA[0-9A-Z]{16}|sk_live_|-----BEGIN' . || echo "no secret patterns"
 ```
 
 ## Behavior (manual, in a scratch repo)
-- [ ] Run `/sentinel-security` in an empty dir: reports nothing to audit, no invented findings.
+- [ ] Run `/hackers-hate-this` in an empty dir: reports nothing to audit, no invented findings.
 - [ ] Run in a sample Express repo with a seeded SQL concatenation: finding has file:line, scenario, impact, fix, verification.
 - [ ] Scripts on a repo with a fake `AKIA...` key: output shows file:line and rule, never the value.
 - [ ] Scripts with no scanners installed: output says "NOT RUN", not "clean".

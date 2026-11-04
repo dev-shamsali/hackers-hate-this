@@ -1,6 +1,6 @@
 # Ground truth for fixtures/vulnerable-express-app
 
-An audit with sentinel-security should find every item below (F01-F19). Items marked POSITIVE must be credited, not flagged. Anything reported that is NOT here must be justified by real code (false-positive check).
+An audit with hackers-hate-this should find every item below (F01-F19). Items marked POSITIVE must be credited, not flagged. Anything reported that is NOT here must be justified by real code (false-positive check).
 
 | ID | Location | Issue | Expected severity |
 |---|---|---|---|
