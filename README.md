@@ -1,6 +1,27 @@
 # Sentinel Security - Claude Code skill
 
-Audits, hardens, and verifies Node.js backends (Express, NestJS, Next.js, MERN) and their databases (MySQL, MariaDB, PostgreSQL, MongoDB; Prisma, Sequelize, TypeORM, Drizzle, Mongoose), plus Docker/Nginx/PM2/CI. Read-only until you approve fixes.
+[![validate-skill](https://github.com/dev-shamsali/sentinel-security/actions/workflows/validate.yml/badge.svg)](https://github.com/dev-shamsali/sentinel-security/actions/workflows/validate.yml)
+![license](https://img.shields.io/badge/license-MIT-blue)
+
+A security engineer for your coding agent. Point it at a Node.js repo and it finds real vulnerabilities in backend code, databases, APIs and infrastructure, proves each one with file and line, tells you how to fix it, and re-verifies after the fix.
+
+**Why it is different**
+- **Evidence only.** Every finding has file:line, attack scenario, impact, fix and a verification step. Unproven suspicions are labelled. A scanner that did not run is reported as "not run", never "passed".
+- **Database-first depth.** SQL injection (MySQL, MariaDB, PostgreSQL, Prisma, Sequelize, TypeORM, Drizzle), NoSQL operator injection (MongoDB, Mongoose), privileges, TLS, exposure, pooling, safe migrations, tenant isolation (RLS).
+- **Framework-aware.** Express/MERN, NestJS, Next.js (Server Actions, middleware bypass, cache leaks, `NEXT_PUBLIC_` secrets). Loads only the modules your stack needs.
+- **Safe by design.** Read-only audit, secrets never printed, no migrations/firewall/SSH/DNS changes without per-action approval, no new dependency without written justification.
+- **Fixes with tests.** Approved fixes get a failing test first, a minimal diff, and a full verification run.
+- **Honest scoring.** Transparent formula, per-category caps, unassessed areas excluded rather than counted as passing.
+
+**Standards:** OWASP Top 10, API Security Top 10, ASVS, Cheat Sheets, CWE, Node.js security best practices.
+
+## Evaluation
+`fixtures/vulnerable-express-app` is an intentionally vulnerable API with 19 seeded flaws and 2 good controls (ground truth in `EXPECTED.md`). One audit run by a subagent that had the skill but not the answer key:
+- Found all 19 seeded issues (recall 19/19), credited both good controls, cited correct line numbers on spot-check, printed no secret values, and reported tools it could not run as "not run".
+- Also reported two extra real issues (unhandled async rejections in Express 4, Mongoose never connected) plus a missing lockfile.
+- Severity differed from ground truth on 2 items (placeholder AWS key rated Informational; upload rated Medium). The rubric now covers placeholder secrets.
+- The run read only 2 of the routed reference files, so the skill now requires reading the matching references in full.
+Caveats: single run, one fixture written by the skill author, same model family as the author. This is a smoke test, not a benchmark. Contributions of independent fixtures are welcome (see CONTRIBUTING.md).
 
 ## Install
 ```bash
@@ -48,6 +69,8 @@ templates/            report, checklist, remediation plan, final assessment
 scripts/              dependency-audit.sh, secret-scan.sh, security-check.sh (read-only)
 examples/             sample report and remediation walkthrough (fictional)
 VALIDATION.md         checklist used to validate this skill
+fixtures/             intentionally vulnerable app + ground truth for evals
+CONTRIBUTING.md, SECURITY.md, CHANGELOG.md, .github/  community files and CI
 ```
 
 ## Scripts
@@ -55,6 +78,7 @@ VALIDATION.md         checklist used to validate this skill
 bash scripts/security-check.sh [dir]     # stack hints + dependency audit + secret scan + optional semgrep/trivy
 bash scripts/dependency-audit.sh [dir]
 bash scripts/secret-scan.sh [dir]
+bash scripts/validate-skill.sh           # validate the skill package itself (CI runs this)
 ```
 Exit codes: 0 clean, 1 findings, 2 usage error, 3 scanner unavailable.
 

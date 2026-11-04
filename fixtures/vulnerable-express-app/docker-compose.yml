@@ -1,0 +1,14 @@
+# INTENTIONALLY INSECURE fixture
+services:
+  db:
+    image: mysql:latest              # F18 unpinned image
+    environment:
+      MYSQL_ROOT_PASSWORD: root      # F11 default creds
+    ports: ["3306:3306"]             # F19 DB published on all interfaces
+  mongo:
+    image: mongo
+    ports: ["27017:27017"]           # F19 no auth, public
+  app:
+    build: .
+    environment:
+      NODE_ENV: development

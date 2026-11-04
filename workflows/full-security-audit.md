@@ -32,4 +32,4 @@ executive summary -> score (methodology printed) -> findings by severity -> data
 Do not invent findings. If zero findings in a category, say "none found in files reviewed: <list>".
 
 ## Stop point
-End with: "Findings above are read-only results. Which items should I fix? (e.g. all Critical, or list IDs)". Do not edit code. Then follow `workflows/backend-hardening.md` for remediation.
+End with: "Findings above are read-only results. Which items should I fix? (e.g. all Critical, or list IDs)". Do not edit code. In a non-interactive or delegated run, end with "Awaiting approval; no changes made". Then follow `workflows/backend-hardening.md` for remediation.

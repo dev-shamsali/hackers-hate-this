@@ -4,7 +4,7 @@ Goal: produce a Discovery Summary that decides which modules load. Never print s
 
 ## Steps
 1. **Root & scope.** Confirm target dir (default cwd). Monorepo? List `apps/*`, `packages/*`, workspaces; audit each backend package separately, note shared libs.
-2. **Quick scan.** `bash scripts/security-check.sh <dir>` (stack hints + dependency + secrets). Treat as a starting point only.
+2. **Quick scan.** `bash <skill-dir>/scripts/security-check.sh <target-dir>` (stack hints + dependency + secrets). Cite its final summary line (per-component exit codes). Starting point only.
 3. **Manifests.** Read `package.json` (deps, scripts, `engines`, `packageManager`), lockfile type, `tsconfig.json`, `.nvmrc`/`.node-version`. Record exact versions of: express, @nestjs/core, next, react, prisma/@prisma/client, sequelize, typeorm, drizzle-orm, mongoose, mongodb, mysql2, pg, ioredis/redis, jsonwebtoken/jose, argon2/bcrypt, zod/class-validator, helmet, cors, rate-limit libs, multer.
 4. **Entry points.** `src/main.ts`, `server.js`, `app.js`, `src/app.ts`, `app/` and `pages/api/`, `middleware.ts`. Read bootstrap fully: middleware order, trust proxy, CORS, body limits, error handler.
 5. **Route inventory.** Greps from `references/security-baseline.md`. Build table: method | path | auth | authz | validation | rate limit. Mark unknowns as "?" and resolve by reading handlers.

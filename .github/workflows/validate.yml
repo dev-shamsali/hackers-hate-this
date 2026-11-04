@@ -1,0 +1,16 @@
+name: validate-skill
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate skill structure, links and scripts
+        run: bash scripts/validate-skill.sh
+      - name: Shellcheck
+        run: sudo apt-get install -y shellcheck >/dev/null && shellcheck -S warning scripts/*.sh

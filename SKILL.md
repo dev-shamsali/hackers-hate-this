@@ -33,7 +33,7 @@ Always run discovery first if no discovery result exists in this conversation.
 
 1. **DISCOVERY** - `workflows/project-discovery.md`. Detect stack, load only matching modules.
 2. **AUDIT** - backend first. Load references per the module table. Record findings as you go.
-3. **REPORT** - fill `templates/security-report.md`. Score with the methodology below. Present, then STOP.
+3. **REPORT** - fill `templates/security-report.md`. Score with the methodology below. Present, then STOP. If you cannot ask the operator (non-interactive or delegated run), end with "Awaiting approval; no changes made" and make none.
 4. **REMEDIATION** - only after operator approves a plan (`templates/remediation-plan.md`). Apply only approved items.
 5. **VERIFICATION** - run tests, scanners, build, typecheck, lint. Re-audit changed code.
 6. **FINAL REPORT** - `templates/final-assessment.md`. Save as `SECURITY-REPORT.md` in the repo root only if asked; otherwise print.
@@ -53,12 +53,14 @@ Always run discovery first if no discovery result exists in this conversation.
 | Dockerfile, compose, nginx, pm2, `.github/workflows`, Jenkinsfile | `infrastructure-security.md` |
 | Performance or production audit | `performance.md` |
 
-All paths relative to this skill directory. Load a reference only when its area is in scope; do not read all of them.
+Paths are relative to this skill's base directory. Always call scripts with that absolute path (`bash <skill-dir>/scripts/security-check.sh <target-dir>`), because the target repo is a different directory.
+
+**Minimum reads (required):** for every area in scope, read the matching reference file in full before you conclude that area. Always read `security-baseline.md`, the engine/ORM file for each detected database, and the framework file. An area whose reference you did not read goes under "Not assessed", never under "no findings". Skip references for areas discovery did not detect.
 
 ## Finding format (mandatory, every finding)
 
 ```
-### [ID] Vulnerability name
+### [SEN-001] Vulnerability name   (IDs: SEN-NNN security, PERF-NNN performance)
 - Severity: Critical | High | Medium | Low | Informational
 - Location: path/to/file.ts:LINE (function or route)
 - Standard: OWASP A0x / API0x, CWE-NNN
@@ -79,14 +81,25 @@ No location + evidence = not a finding. Unconfirmed suspicion goes under "Needs 
 - **Low**: hardening gaps, cookie flag gaps on non-session cookies, missing request IDs.
 - **Informational**: best-practice notes, no exploit path.
 
+Adjustments: a hardcoded secret that is a known documentation/placeholder value (e.g. AWS `AKIAIOSFODNN7EXAMPLE`) is Informational, but state that and recommend removing it. A real-looking credential is Critical until proven dead. SSRF reachable only by an authenticated user is still High when it can reach internal hosts or cloud metadata.
+
 ## Security score (transparent)
 
-Start at 100. Subtract per **confirmed** finding: Critical 25, High 12, Medium 5, Low 2. Informational 0. Floor 0. Cap deductions per category (auth, injection, config, infra, deps) at 40. Grade: 90+ A, 75-89 B, 60-74 C, 40-59 D, <40 F. Print the formula and the deduction list with the score. If a module was not audited, say "not assessed"; never score it as passing.
+Start at 100. Subtract per **confirmed** finding: Critical 25, High 12, Medium 5, Low 2. Informational 0.
+
+Categories (assign each finding to exactly one) and cap each at 40 deducted points:
+- **access**: authentication, sessions/JWT, authorization, IDOR, mass assignment, rate limiting on auth flows
+- **injection**: SQL/NoSQL/command injection, SSRF, XSS, open redirect, path traversal, file upload
+- **config**: headers, CORS, error handling, body limits, DoS/resource limits, logging
+- **infra**: Docker, Compose, Nginx, CI/CD, DB network exposure and DB accounts, secrets in repo
+- **deps**: dependency vulnerabilities
+
+Score = max(0, 100 - sum of the five capped category deductions). Grade: 90+ A, 75-89 B, 60-74 C, 40-59 D, <40 F. Show per-category raw and capped numbers plus the finding counts, because a score of 0 hides the difference between "bad" and "catastrophic". If a module was not audited, say "not assessed"; never score it as passing.
 
 ## Hard rules
 
 1. Read-only until approval. Never edit source in audit phases. Never claim "fixed" without a verification run you executed and saw pass.
-2. Never print secret values. Show names and file:line only; redact to `AKIA****`.
+2. Never print secret values, including weak or default passwords (`root`, `secret123`). Show names and file:line only; redact to `AKIA****`.
 3. Never claim a scanner passed unless you ran it and saw exit status. If a tool is missing, say "not run: <tool> not installed".
 4. Never run destructive DB operations, production migrations, or modify firewall, SSH, DNS, DB network access, or server config without explicit approval for that exact action.
 5. Only test systems the operator owns or is authorised to test. Active probing (ZAP, curl against URLs) needs the target stated by the operator and must be localhost/staging unless told otherwise.

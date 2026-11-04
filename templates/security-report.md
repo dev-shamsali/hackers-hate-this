@@ -13,7 +13,8 @@ Mode: static review {{+ dynamic checks against <authorized target>}}. No source 
 ## 2. Security score
 Score: **{{score}}/100 (grade {{A-F}})**
 Method: start 100; subtract Critical 25, High 12, Medium 5, Low 2 per confirmed finding; per-category deduction cap 40; floor 0.
-Deductions: {{ID: -pts, ...}}
+Per category (raw / capped at 40): access {{}} / {{}}, injection {{}} / {{}}, config {{}} / {{}}, infra {{}} / {{}}, deps {{}} / {{}}
+Deductions: {{ID: category, -pts, ...}}
 Not assessed (excluded, not counted as passing): {{list}}
 
 ## 3. Scope and method
@@ -30,7 +31,7 @@ Tools NOT executed: {{tool: reason}}
 ## 7. Low and informational findings
 
 ## 8. Database findings
-{{Engine/account/exposure/TLS/pool/migration table + findings}}
+{{Engine/account/exposure/TLS/pool/migration table. List database-related findings by ID only (cross-reference sections 4-7); do not duplicate them.}}
 
 ## 9. Performance findings
 {{Label each measured or static observation}}
