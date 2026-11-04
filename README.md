@@ -7,6 +7,8 @@
 
 A security engineer for your coding agent. Point it at a Node.js repo and it finds real vulnerabilities in backend code, databases, APIs and infrastructure, proves each one with file and line, tells you how to fix it, and re-verifies after the fix.
 
+Full story (problem, solution, evidence, limits): [ABOUT.md](ABOUT.md).
+
 **Why it is different**
 - **Evidence only.** Every finding has file:line, attack scenario, impact, fix and a verification step. Unproven suspicions are labelled. A scanner that did not run is reported as "not run", never "passed".
 - **Database-first depth.** SQL injection (MySQL, MariaDB, PostgreSQL, Prisma, Sequelize, TypeORM, Drizzle), NoSQL operator injection (MongoDB, Mongoose), privileges, TLS, exposure, pooling, safe migrations, tenant isolation (RLS).

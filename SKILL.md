@@ -137,4 +137,4 @@ Run via interpreter, read-only, safe to run on any repo:
 
 ## Docs in this skill
 
-`agents/` role prompts for the auditor and test-engineer agents (optional install to `~/.claude/agents/`). `README.md` install and usage. `examples/` sample audit report and remediation walkthrough. `VALIDATION.md` checklist for this skill itself.
+`agents/` role prompts for the auditor and test-engineer agents (optional install to `~/.claude/agents/`). `README.md` install and usage. `ABOUT.md` overview for readers. `examples/` sample audit report and remediation walkthrough. `VALIDATION.md` checklist for this skill itself.
