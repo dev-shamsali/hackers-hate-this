@@ -19,7 +19,7 @@ Not assessed (excluded, not counted as passing): {{list}}
 
 ## 3. Scope and method
 Discovery summary: {{stack/versions/DB/auth/infra}}
-Modules applied: {{list of references}}
+References read in full: {{list; any routed reference not listed here means that area is NOT ASSESSED}}
 Tools executed: {{tool: command, exit code, result}}
 Tools NOT executed: {{tool: reason}}
 

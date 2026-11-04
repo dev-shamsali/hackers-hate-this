@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.0
+- New references: `browser-security.md` (headers/CSP/XSS/CSRF/CORS/data leaks) and `ddos-resilience.md` (layered DoS/DDoS, honest limits). `browser` and `dos` test modules.
+- `fixtures/hardened-express-app` plus `examples/example-hardening-run.md`.
+- Report template: "References read in full".
+
 ## 1.2.0
 - Dual-agent mode: `workflows/dual-agent-audit.md`, `agents/` (auditor + test engineer), `references/security-testing.md`, `templates/test-summary.md`.
 - Fixture now exports its app and ships generated `security-tests/` (105 tests, 12 modules). Real run summary in `examples/example-dual-agent-summary.md`.

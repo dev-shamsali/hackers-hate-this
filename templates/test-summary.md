@@ -17,6 +17,8 @@ No application source was modified. Tests assert secure behavior: FAIL = vulnera
 | validation (invalid payloads) | | | | | | |
 | ratelimit | | | | | | |
 | headers / cors / errors | | | | | | |
+| browser (CSP, XSS reflection, data leaks) | | | | | | |
+| dos (body/pagination caps, crash resistance, rate limit) | | | | | | |
 | upload | | | | | | |
 | ssrf / redirect | | | | | | |
 Totals: {{n}} tests, {{p}} passed, {{f}} failed, {{s}} skipped. Modules not runnable: {{list}}.

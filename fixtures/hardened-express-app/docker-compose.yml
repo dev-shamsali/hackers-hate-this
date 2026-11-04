@@ -1,0 +1,48 @@
+services:
+  db:
+    image: mysql:8.4.3
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?set in .env}
+      MYSQL_DATABASE: shop
+      MYSQL_USER: ${DB_USER:?set in .env}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?set in .env}
+    volumes: [dbdata:/var/lib/mysql]
+    networks: [backend]            # no published ports; reachable only by the app
+    security_opt: ["no-new-privileges:true"]
+    restart: unless-stopped
+  mongo:
+    image: mongo:7.0.14
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER:?set in .env}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:?set in .env}
+    command: ["mongod", "--auth", "--bind_ip", "0.0.0.0"]
+    volumes: [mongodata:/data/db]
+    networks: [backend]
+    security_opt: ["no-new-privileges:true"]
+    restart: unless-stopped
+  app:
+    build: .
+    environment:
+      NODE_ENV: production
+      DB_HOST: db
+      DB_USER: ${DB_USER:?set in .env}
+      DB_PASSWORD: ${DB_PASSWORD:?set in .env}
+      JWT_SECRET: ${JWT_SECRET:?set in .env (>=32 chars)}
+      MONGO_URI: ${MONGO_URI:?set in .env}
+      CORS_ORIGINS: ${CORS_ORIGINS:-}
+      TRUST_PROXY: "1"
+    ports: ["127.0.0.1:3000:3000"]   # loopback only; expose via nginx/TLS
+    volumes: [uploads:/app/data/uploads]
+    depends_on: [db, mongo]
+    networks: [backend, edge]
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 512m
+    pids_limit: 200
+    restart: unless-stopped
+networks:
+  backend: { internal: true }      # DB network has no outbound internet
+  edge: {}
+volumes: { dbdata: {}, mongodata: {}, uploads: {} }

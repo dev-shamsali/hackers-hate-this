@@ -33,6 +33,7 @@ Never read the real `.env`; set env in the test setup (`JWT_SECRET='test-secret-
 **ratelimit**: loop to threshold+1 => 429 with `Retry-After`; `X-Forwarded-For` spoof does not reset the counter; separate accounts counted per policy.
 **headers/cors/errors**: `x-content-type-options: nosniff`, no `x-powered-by`, CSP/HSTS present where configured; preflight from `https://evil.example` gets no `access-control-allow-origin`; wildcard/reflection + credentials absent; 500 and 404 bodies have no stack, SQL text or file paths; oversized body => 413.
 **upload**: file over limit => 413; disguised executable (magic bytes mismatch) => 415/400; filename `../../x` stored under random name; SVG with script rejected or served with safe headers; other user's file id => 404.
+**browser** and **dos**: use the test catalogs at the end of `browser-security.md` and `ddos-resilience.md` (files `browser.test.*`, `dos.test.*`).
 **ssrf/redirect**: `url=http://127.0.0.1`, `http://169.254.169.254/`, `file:///etc/passwd` rejected (assert no outbound call using a mocked `fetch`); `next=https://evil.example` or `//evil.example` not reflected in `Location`.
 
 ## 4. File layout
@@ -41,7 +42,7 @@ Never read the real `.env`; set env in the test setup (`JWT_SECRET='test-secret-
 helpers/app.(js|ts)   app factory + env + seeded users + token helper
 helpers/payloads.(js|ts)
 auth.test.(js|ts)  jwt.test  refresh.test  authz.test  idor.test  tenant.test
-sqli.test  nosqli.test  validation.test  ratelimit.test  headers.test  upload.test  ssrf.test
+sqli.test  nosqli.test  validation.test  ratelimit.test  headers.test  browser.test  dos.test  upload.test  ssrf.test
 README.md   (optional) how to run, what red means
 ```
 Skip files for modules the app does not have; do not create empty placeholder tests.

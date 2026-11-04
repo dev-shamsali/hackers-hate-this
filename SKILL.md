@@ -17,6 +17,7 @@ Parse the user request (or `$ARGUMENTS`). No command given = **full audit**.
 | (nothing), "full security audit", "audit this repo" | `workflows/project-discovery.md` then `workflows/full-security-audit.md` |
 | "backend security audit" | discovery, then `workflows/backend-hardening.md` (audit half) |
 | "API security audit" | `workflows/api-security-audit.md` |
+| "protect against browser attacks / XSS / DoS / DDoS" | `references/browser-security.md` + `references/ddos-resilience.md`, then `workflows/backend-hardening.md`, then dual-agent tests |
 | "SQL database security audit", "SQL injection" | `workflows/database-audit.md` + `workflows/sql-injection-audit.md` |
 | "MongoDB security audit" | `workflows/database-audit.md` + `workflows/nosql-injection-audit.md` |
 | "authentication audit", "authorization audit" | `workflows/authentication-audit.md` |
@@ -43,7 +44,7 @@ Always run discovery first if no discovery result exists in this conversation.
 
 | Detected | Load |
 |---|---|
-| Any Node backend | `references/security-baseline.md`, `owasp-top-10.md`, `owasp-api-top-10.md`, `authentication.md`, `authorization.md`, `rate-limiting.md` |
+| Any Node backend | `references/security-baseline.md`, `browser-security.md`, `ddos-resilience.md`, `owasp-top-10.md`, `owasp-api-top-10.md`, `authentication.md`, `authorization.md`, `rate-limiting.md` |
 | Express / MERN | `express-security.md`, `zod-validation.md` |
 | NestJS | `nestjs-security.md` |
 | Next.js | `nextjs-security.md`, `zod-validation.md` |
@@ -57,7 +58,7 @@ Always run discovery first if no discovery result exists in this conversation.
 
 Paths are relative to this skill's base directory. Always call scripts with that absolute path (`bash <skill-dir>/scripts/security-check.sh <target-dir>`), because the target repo is a different directory.
 
-**Minimum reads (required):** for every area in scope, read the matching reference file in full before you conclude that area. Always read `security-baseline.md`, the engine/ORM file for each detected database, and the framework file. An area whose reference you did not read goes under "Not assessed", never under "no findings". Skip references for areas discovery did not detect.
+**Minimum reads (required):** for every area in scope, read the matching reference file in full before you conclude that area. Always read `security-baseline.md`, the engine/ORM file for each detected database, and the framework file. An area whose reference you did not read goes under "Not assessed", never under "no findings". The report and every remediation summary must include a "References read in full" list; remediation work also reads the references for the findings it fixes. Skip references for areas discovery did not detect.
 
 ## Finding format (mandatory, every finding)
 

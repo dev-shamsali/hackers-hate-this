@@ -27,7 +27,10 @@ test('[auth] reset endpoint does not hand the token to the unauthenticated calle
   assert.ok(!('token' in r.body), 'reset token returned in HTTP response');
 });
 test('[auth] reset token is unpredictable (>=128-bit, not Math.random base36) (F17)', T, async () => {
-  const r = await request(app).get('/api/reset'); const t = String(r.body.token || '');
+  // Contradiction fix: the test above forbids returning a token at all. If an implementation does return one, it must be strong.
+  const r = await request(app).get('/api/reset');
+  if (!('token' in r.body)) return;
+  const t = String(r.body.token);
   assert.ok(t.length >= 32, `token length ${t.length} < 32`);
 });
 test('[auth] issued login token carries exp (F04)', T, async () => {

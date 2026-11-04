@@ -18,6 +18,9 @@ A security engineer for your coding agent. Point it at a Node.js repo and it fin
 ## Dual-agent mode (audit + tests)
 Say "audit and test". The orchestrator runs discovery, asks once for approval (test directory, local-only run mode, whether a devDependency may be added), then starts two agents in parallel: **sentinel-auditor** (read-only findings) and **sentinel-test-engineer** (new test files only, per module, each module run separately). Tests assert secure behavior, so a failing test means the flaw is reproducible. The result is one summary: per-module pass/fail table, failed tests, verified controls, and a cross-check of each finding as Test-confirmed, Audit-only, Test-only or Conflict. After fixes, the same tests verify them (red to green). Optional: copy `agents/*.md` to `~/.claude/agents/` to use them as named subagents. See `examples/example-dual-agent-summary.md` (real run: 105 tests across 12 modules).
 
+## Harden-then-test
+Say "harden against browser attacks, DoS and injection, then test every module". The remediation step applies approved fixes (new references: `browser-security.md`, `ddos-resilience.md`), then the test agent verifies each module and reports before/after. Worked example: `examples/example-hardening-run.md` (27/105 -> 140/140 tests; the second pass still found 2 real gaps). Output: `fixtures/hardened-express-app/`.
+
 ## Evaluation
 `fixtures/vulnerable-express-app` is an intentionally vulnerable API with 19 seeded flaws and 2 good controls (ground truth in `EXPECTED.md`). One audit run by a subagent that had the skill but not the answer key:
 - Found all 19 seeded issues (recall 19/19), credited both good controls, cited correct line numbers on spot-check, printed no secret values, and reported tools it could not run as "not run".
@@ -68,7 +71,7 @@ Flow: discovery -> audit -> report (stops for your approval) -> remediation of a
 ```
 SKILL.md              entry point: routing, rules, scoring, phases
 agents/               role prompts for auditor + test-engineer agents (optional: copy to ~/.claude/agents/)
-references/           24 topic modules, loaded only when detected
+references/           26 topic modules, loaded only when detected
 workflows/            13 step-by-step procedures
 templates/            report, checklist, remediation plan, final assessment, test summary
 scripts/              dependency-audit.sh, secret-scan.sh, security-check.sh (read-only)

@@ -1,6 +1,6 @@
 # API Security Audit
 
-References: `owasp-api-top-10.md`, `rate-limiting.md`, `zod-validation.md`, plus framework file (`express-security.md` | `nestjs-security.md` | `nextjs-security.md`).
+References: `owasp-api-top-10.md`, `rate-limiting.md`, `browser-security.md`, `ddos-resilience.md`, `zod-validation.md`, plus framework file (`express-security.md` | `nestjs-security.md` | `nextjs-security.md`).
 
 ## Steps
 1. **Route inventory table** (method, path, auth, role/ownership, validation, rate limit, version). Include hidden routes: health, metrics, docs, debug, webhooks, websocket events, Server Actions.

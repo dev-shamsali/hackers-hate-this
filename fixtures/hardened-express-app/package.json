@@ -1,0 +1,24 @@
+{
+  "name": "hardened-express-app",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Sentinel-hardened version of fixtures/vulnerable-express-app. Reference output of a harden-then-test run. Review before reuse.",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-rate-limit": "^8.7.3",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^7.0.0",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.0.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "supertest": "^7.3.1"
+  },
+  "scripts": {
+    "test:security": "node --test security-tests/"
+  }
+}

@@ -1,0 +1,10 @@
+node_modules
+.git
+.env
+.env.*
+!.env.example
+security-tests
+*.pem
+*.log
+Dockerfile
+docker-compose.yml
